@@ -1,6 +1,7 @@
 "use client";
 
-import { SignUp } from "@stackframe/stack";
+export const dynamic = 'force-dynamic';
+
 import LogoHeader from "@/components/LogoHeader";
 
 export default function SignUpPage() {
@@ -10,11 +11,21 @@ export default function SignUpPage() {
         <LogoHeader size="medium" opacity={80} />
         
         <div className="max-w-md mx-auto mt-8">
-          <SignUp 
-            fullPage={false}
-            redirectUrl="/dashboard"
-            afterSignUp="/auth/onboarding"
-          />
+          <div className="bg-white p-8 rounded-lg shadow-md">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Sign Up</h2>
+            <p className="text-gray-600 mb-4">
+              Authentication is currently disabled. The app is in demo mode.
+            </p>
+            <a 
+              href="/auth/onboarding" 
+              className="block w-full text-center bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+            >
+              Continue to Setup (Demo)
+            </a>
+            <p className="mt-4 text-sm text-gray-500">
+              To enable authentication, configure Stack Auth environment variables.
+            </p>
+          </div>
         </div>
       </div>
     </div>

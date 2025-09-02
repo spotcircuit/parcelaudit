@@ -1,13 +1,12 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { useState } from "react";
-import { useUser, useStackApp } from "@stackframe/stack";
 import { useRouter } from "next/navigation";
 import LogoHeader from "@/components/LogoHeader";
 
 export default function OnboardingPage() {
-  const user = useUser({ or: "redirect" });
-  const app = useStackApp();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -25,21 +24,17 @@ export default function OnboardingPage() {
     setLoading(true);
 
     try {
-      // Update user metadata
-      await user.update({
-        clientMetadata: {
-          ...user.clientMetadata,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          businessName: formData.businessName,
-          website: formData.website,
-          phone: formData.phone,
-          industry: formData.industry,
-          monthlyShipments: formData.monthlyShipments,
-          onboardingCompleted: true
-        },
-        displayName: `${formData.firstName} ${formData.lastName}`
-      });
+      // In demo mode, just store locally and redirect
+      localStorage.setItem('userProfile', JSON.stringify({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        businessName: formData.businessName,
+        website: formData.website,
+        phone: formData.phone,
+        industry: formData.industry,
+        monthlyShipments: formData.monthlyShipments,
+        onboardingCompleted: true
+      }));
 
       // Redirect to dashboard
       router.push("/dashboard");

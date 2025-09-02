@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import LogoHeader from "@/components/LogoHeader";
 import Link from "next/link";
 
