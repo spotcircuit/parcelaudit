@@ -1,9 +1,10 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { useUser } from "@stackframe/stack";
 import LogoHeader from "@/components/LogoHeader";
 import ErrorDetailsModal from "@/components/ErrorDetailsModal";
 import DisputeModal from "@/components/DisputeModal";
@@ -35,7 +36,7 @@ interface InvoiceDetails {
 export default function InvoiceDetailsPage() {
   const params = useParams();
   const router = useRouter();
-  const user = useUser();
+  // User auth disabled in demo mode
   const uploadId = params.id as string;
   
   const [errors, setErrors] = useState<AuditError[]>([]);

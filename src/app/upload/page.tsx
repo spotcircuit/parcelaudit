@@ -1,8 +1,9 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { useUser } from "@stackframe/stack";
 import LogoHeader from "@/components/LogoHeader";
 import { motion } from "framer-motion";
 
@@ -19,7 +20,7 @@ interface UploadedFile {
 }
 
 export default function UploadPage() {
-  const user = useUser({ or: "redirect" });
+  // User auth disabled in demo mode
   const router = useRouter();
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);

@@ -1,9 +1,10 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useUser } from "@stackframe/stack";
 import LogoHeader from "@/components/LogoHeader";
 import { Toast, useToast } from "@/components/Toast";
 import FormatSelectionModal from "@/components/FormatSelectionModal";
@@ -36,7 +37,7 @@ interface InvoiceStats {
 
 export default function InvoicesView() {
   const router = useRouter();
-  const user = useUser();
+  // User auth disabled in demo mode
   const { messages, addToast, removeToast } = useToast();
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [stats, setStats] = useState<InvoiceStats>({
