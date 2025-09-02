@@ -60,7 +60,7 @@ export default function InvoicesView() {
   const fetchInvoices = async () => {
     setIsLoading(true);
     try {
-      const userId = user?.id || "anonymous";
+      const userId = "anonymous";
       // Add timestamp to prevent caching
       const response = await fetch(`/api/invoices?userId=${userId}&t=${Date.now()}`, {
         cache: 'no-store'
@@ -131,7 +131,7 @@ export default function InvoicesView() {
     
     // Collect all error IDs from all selected invoices
     try {
-      const userId = user?.id || "anonymous";
+      const userId = "anonymous";
       const allErrorIds: string[] = [];
       
       // Fetch errors for each selected invoice
@@ -226,7 +226,7 @@ export default function InvoicesView() {
     return logos[carrier] || '📦';
   };
 
-  if (!user) return null;
+  // User check removed - demo mode
 
   return (
     <div className="min-h-screen bg-gray-50">
