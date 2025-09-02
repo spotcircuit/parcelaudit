@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
+const path = require('path');
+
 const nextConfig = {
   reactStrictMode: true,
-  outputFileTracingRoot: "C:\\Users\\Big Daddy Pyatt\\CascadeProjects\\tools-data-saas\\parcelaudit",
+  outputFileTracingRoot: path.join(__dirname, '../../'),
   experimental: {
     serverActions: {
       bodySizeLimit: '10mb'
