@@ -81,7 +81,7 @@ export default function InvoiceDetailsPage() {
   const fetchInvoiceDetails = async () => {
     setIsLoading(true);
     try {
-      const userId = user?.id || "anonymous";
+      const userId = "anonymous";
       
       // Fetch errors for this specific upload
       const response = await fetch(`/api/audit-results?userId=${userId}&uploadId=${uploadId}`);
