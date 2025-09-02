@@ -1,0 +1,399 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { useUser } from "@stackframe/stack";
+import LogoHeader from "@/components/LogoHeader";
+import ErrorDetailsModal from "@/components/ErrorDetailsModal";
+
+interface AuditError {
+  id: string;
+  tracking_number: string;
+  carrier: string;
+  error_type: string;
+  description: string;
+  recovery_amount: number;
+  original_charge?: number;
+  corrected_charge?: number;
+  confidence_score?: number;
+  status: string;
+  detected_at: string;
+}
+
+interface InvoiceDetails {
+  invoice_number: string;
+  file_name: string;
+  carrier: string;
+  total_amount: number;
+  uploaded_at: string;
+  line_items_count: number;
+}
+
+export default function InvoiceDetailsPage() {
+  const params = useParams();
+  const router = useRouter();
+  const user = useUser();
+  const uploadId = params.id as string;
+  
+  const [errors, setErrors] = useState<AuditError[]>([]);
+  const [filteredErrors, setFilteredErrors] = useState<AuditError[]>([]);
+  const [selectedErrorType, setSelectedErrorType] = useState<string>('all');
+  const [invoiceDetails, setInvoiceDetails] = useState<InvoiceDetails | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedError, setSelectedError] = useState<AuditError | null>(null);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedErrors, setSelectedErrors] = useState<Set<string>>(new Set());
+  
+  const [stats, setStats] = useState({
+    totalErrors: 0,
+    totalRecovery: 0,
+    disputedCount: 0,
+    creditedCount: 0
+  });
+
+  useEffect(() => {
+    if (uploadId) {
+      fetchInvoiceDetails();
+    }
+  }, [uploadId]);
+
+  const fetchInvoiceDetails = async () => {
+    setIsLoading(true);
+    try {
+      const userId = user?.id || "anonymous";
+      
+      // Fetch errors for this specific upload
+      const response = await fetch(`/api/audit-results?userId=${userId}&uploadId=${uploadId}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        
+        // Set errors
+        if (data.errors) {
+          setErrors(data.errors);
+          
+          // Extract invoice details from first error
+          if (data.errors.length > 0) {
+            const firstError = data.errors[0];
+            setInvoiceDetails({
+              invoice_number: firstError.invoice_number || `INV-${uploadId}`,
+              file_name: firstError.file_name || 'Unknown',
+              carrier: firstError.carrier || 'UPS',
+              total_amount: firstError.invoice_total || 0,
+              uploaded_at: firstError.detected_at,
+              line_items_count: data.errors.length
+            });
+          }
+        }
+        
+        // Set stats
+        if (data.stats) {
+          setStats({
+            totalErrors: parseInt(data.stats.total_errors) || 0,
+            totalRecovery: parseFloat(data.stats.total_recovery) || 0,
+            disputedCount: parseInt(data.stats.pending_disputes) || 0,
+            creditedCount: parseInt(data.stats.recovered_count) || 0
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching invoice details:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleViewError = (error: AuditError) => {
+    setSelectedError({
+      ...error,
+      id: error.id,
+      trackingNumber: error.tracking_number,
+      carrier: error.carrier,
+      errorType: error.error_type,
+      description: error.description,
+      recoveryAmount: error.recovery_amount,
+      originalCharge: error.original_charge,
+      correctedCharge: error.corrected_charge,
+      confidenceScore: error.confidence_score,
+      status: error.status,
+      createdAt: new Date(error.detected_at).toLocaleDateString(),
+      invoiceNumber: invoiceDetails?.invoice_number,
+      fileName: invoiceDetails?.file_name
+    } as any);
+    setShowDetailsModal(true);
+  };
+
+  const handleDispute = async (errorId: string) => {
+    // Update status to disputed
+    console.log("Marking as disputed:", errorId);
+    // You would call an API to update the status here
+  };
+
+  const exportErrors = () => {
+    const userId = user?.id || "anonymous";
+    window.open(`/api/export-report?uploadId=${uploadId}&userId=${userId}&format=csv`, '_blank');
+  };
+
+  const generateDisputePacket = () => {
+    const selectedIds = Array.from(selectedErrors).join(',');
+    if (selectedIds) {
+      window.open(`/api/dispute-packet?errorIds=${selectedIds}`, '_blank');
+    } else {
+      alert("Please select errors to include in the dispute packet");
+    }
+  };
+
+  const getErrorTypeColor = (type: string) => {
+    const colors: Record<string, string> = {
+      'Dimensional Weight Error': 'bg-blue-100 text-blue-800',
+      'Late Delivery Refund': 'bg-red-100 text-red-800',
+      'Invalid Address Correction': 'bg-yellow-100 text-yellow-800',
+      'Duplicate Charge': 'bg-purple-100 text-purple-800',
+      'Invalid Residential Surcharge': 'bg-orange-100 text-orange-800',
+      'Peak Surcharge Off-Season': 'bg-pink-100 text-pink-800'
+    };
+    return colors[type] || 'bg-gray-100 text-gray-800';
+  };
+
+  const getStatusColor = (status: string) => {
+    const colors: Record<string, string> = {
+      'identified': 'bg-gray-100 text-gray-800',
+      'disputed': 'bg-blue-100 text-blue-800',
+      'credited': 'bg-green-100 text-green-800',
+      'rejected': 'bg-red-100 text-red-800'
+    };
+    return colors[status] || 'bg-gray-100 text-gray-800';
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading invoice details...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Modal */}
+      <ErrorDetailsModal
+        isOpen={showDetailsModal}
+        onClose={() => setShowDetailsModal(false)}
+        error={selectedError}
+        onDispute={handleDispute}
+      />
+
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => router.push('/dashboard')}
+                className="text-gray-500 hover:text-gray-700 mr-3"
+              >
+                ← Back
+              </button>
+              <LogoHeader size="small" opacity={100} />
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">
+                  Invoice Details
+                </h1>
+                {invoiceDetails && (
+                  <p className="text-sm text-gray-600">
+                    {invoiceDetails.invoice_number} • {invoiceDetails.file_name}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={generateDisputePacket}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+              >
+                Generate Dispute Packet
+              </button>
+              <button
+                onClick={exportErrors}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              >
+                Export Report
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-lg shadow p-6"
+          >
+            <div className="text-sm text-gray-600 mb-1">Total Errors</div>
+            <div className="text-3xl font-bold text-gray-900">{stats.totalErrors}</div>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-white rounded-lg shadow p-6"
+          >
+            <div className="text-sm text-gray-600 mb-1">Total Recovery</div>
+            <div className="text-3xl font-bold text-green-600">
+              ${(Number(stats.totalRecovery) || 0).toFixed(2)}
+            </div>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="bg-white rounded-lg shadow p-6"
+          >
+            <div className="text-sm text-gray-600 mb-1">Disputed</div>
+            <div className="text-3xl font-bold text-yellow-600">{stats.disputedCount}</div>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="bg-white rounded-lg shadow p-6"
+          >
+            <div className="text-sm text-gray-600 mb-1">Credited</div>
+            <div className="text-3xl font-bold text-green-600">{stats.creditedCount}</div>
+          </motion.div>
+        </div>
+
+        {/* Errors Table */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="bg-white rounded-lg shadow"
+        >
+          <div className="px-6 py-4 border-b border-gray-200">
+            <h2 className="text-lg font-semibold text-gray-900">Audit Errors Found</h2>
+          </div>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <input
+                      type="checkbox"
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedErrors(new Set(errors.map(e => e.id)));
+                        } else {
+                          setSelectedErrors(new Set());
+                        }
+                      }}
+                      className="rounded"
+                    />
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Tracking Number
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Error Type
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Description
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Recovery
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Confidence
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {errors.length === 0 ? (
+                  <tr>
+                    <td colSpan={8} className="px-6 py-12 text-center text-gray-500">
+                      No errors found for this invoice
+                    </td>
+                  </tr>
+                ) : (
+                  errors.map((error) => (
+                    <tr key={error.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4">
+                        <input
+                          type="checkbox"
+                          checked={selectedErrors.has(error.id)}
+                          onChange={(e) => {
+                            const newSelected = new Set(selectedErrors);
+                            if (e.target.checked) {
+                              newSelected.add(error.id);
+                            } else {
+                              newSelected.delete(error.id);
+                            }
+                            setSelectedErrors(newSelected);
+                          }}
+                          className="rounded"
+                        />
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        {error.tracking_number}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getErrorTypeColor(error.error_type)}`}>
+                          {error.error_type}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {error.description}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
+                        ${(Number(error.recovery_amount) || 0).toFixed(2)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {error.confidence_score ? `${error.confidence_score}%` : '-'}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(error.status)}`}>
+                          {error.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        <button
+                          onClick={() => handleViewError(error)}
+                          className="text-blue-600 hover:text-blue-900 mr-3"
+                        >
+                          View
+                        </button>
+                        <button
+                          onClick={() => handleDispute(error.id)}
+                          className="text-green-600 hover:text-green-900"
+                        >
+                          Dispute
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
+      </main>
+    </div>
+  );
+}

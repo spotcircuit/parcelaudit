@@ -1,0 +1,37 @@
+-- FedEx DAS ZIP Import - Remaining Batches
+-- ==========================================
+-- Current: 3,000 ZIP codes imported (batches 1-3)
+-- Remaining: 22,354 ZIP codes (batches 4-26)
+-- Total target: 25,354 ZIP codes
+
+-- To complete the import, execute each batch file sequentially:
+-- Batch 4: batch_04.sql (1000 ZIPs)
+-- Batch 5: batch_05.sql (1000 ZIPs)
+-- Batch 6: batch_06.sql (1000 ZIPs)
+-- Batch 7: batch_07.sql (1000 ZIPs)
+-- Batch 8: batch_08.sql (1000 ZIPs)
+-- Batch 9: batch_09.sql (1000 ZIPs)
+-- Batch 10: batch_10.sql (1000 ZIPs)
+-- Batch 11: batch_11.sql (1000 ZIPs)
+-- Batch 12: batch_12.sql (1000 ZIPs)
+-- Batch 13: batch_13.sql (1000 ZIPs)
+-- Batch 14: batch_14.sql (1000 ZIPs)
+-- Batch 15: batch_15.sql (1000 ZIPs)
+-- Batch 16: batch_16.sql (1000 ZIPs)
+-- Batch 17: batch_17.sql (1000 ZIPs)
+-- Batch 18: batch_18.sql (1000 ZIPs)
+-- Batch 19: batch_19.sql (1000 ZIPs)
+-- Batch 20: batch_20.sql (1000 ZIPs)
+-- Batch 21: batch_21.sql (1000 ZIPs)
+-- Batch 22: batch_22.sql (1000 ZIPs)
+-- Batch 23: batch_23.sql (1000 ZIPs)
+-- Batch 24: batch_24.sql (1000 ZIPs)
+-- Batch 25: batch_25.sql (1000 ZIPs)
+-- Batch 26: batch_26.sql (354 ZIPs)
+
+-- Each file contains an INSERT statement with ON CONFLICT handling
+-- Execute via Neon SQL tool with project: orange-hall-17085884, database: neondb
+
+-- Verification query after import:
+-- SELECT COUNT(*) FROM fedex_das_zips;
+-- Should return: 25,354

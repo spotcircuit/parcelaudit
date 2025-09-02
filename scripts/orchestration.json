@@ -1,0 +1,123 @@
+{
+  "projectId": "orange-hall-17085884",
+  "database": "neondb",
+  "totalBatches": 23,
+  "totalZips": 22354,
+  "batches": [
+    {
+      "number": 4,
+      "filename": "batch_04.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 5,
+      "filename": "batch_05.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 6,
+      "filename": "batch_06.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 7,
+      "filename": "batch_07.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 8,
+      "filename": "batch_08.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 9,
+      "filename": "batch_09.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 10,
+      "filename": "batch_10.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 11,
+      "filename": "batch_11.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 12,
+      "filename": "batch_12.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 13,
+      "filename": "batch_13.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 14,
+      "filename": "batch_14.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 15,
+      "filename": "batch_15.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 16,
+      "filename": "batch_16.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 17,
+      "filename": "batch_17.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 18,
+      "filename": "batch_18.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 19,
+      "filename": "batch_19.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 20,
+      "filename": "batch_20.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 21,
+      "filename": "batch_21.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 22,
+      "filename": "batch_22.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 23,
+      "filename": "batch_23.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 24,
+      "filename": "batch_24.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 25,
+      "filename": "batch_25.sql",
+      "zipCount": 1000
+    },
+    {
+      "number": 26,
+      "filename": "batch_26.sql",
+      "zipCount": 354
+    }
+  ]
+}

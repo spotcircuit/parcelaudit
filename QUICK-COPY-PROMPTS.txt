@@ -1,0 +1,43 @@
+COPY THESE EXACT PROMPTS FOR AI IMAGE GENERATION:
+
+=== PRIORITY 1: HERO DASHBOARD ===
+Clean modern SaaS dashboard interface showing shipping invoice audit results, dark header with 'SpotCircuit' logo, main area displays a table of shipping invoices with columns for tracking number, carrier (UPS/FedEx), billed amount, actual amount, and savings highlighted in green. Top of dashboard shows three metric cards: 'Total Audited: $47,832', 'Errors Found: $3,421', 'Recovery Rate: 7.2%'. Include a green 'Export Report' button. Use a white background with subtle blue accents, professional business software UI design, photorealistic, high resolution
+
+=== PRIORITY 2: SAVINGS CHART ===
+Professional business bar chart showing monthly shipping cost recovery, X-axis shows months Jan-Jun, Y-axis shows dollar amounts 0-5000, green bars showing recovered amounts increasing from $2,100 to $4,700, subtle grid lines, title 'Monthly Recovery Trend', clean white background with light gray gridlines, small dollar sign icons floating above bars, modern data visualization style, crisp and clear
+
+=== PRIORITY 3: BEFORE/AFTER INVOICE ===
+Split screen showing shipping invoice before and after audit, left side labeled 'BEFORE' with invoice showing $847.32 with multiple line items some highlighted in red, right side labeled 'AFTER' showing $752.18 with corrected amounts in green, checkmark icons next to fixed items, savings amount of $95.14 prominently displayed in green box, clean professional document design, realistic invoice appearance
+
+=== PRIORITY 4: DIM ERROR DETECTION ===
+Software interface showing dimensional weight billing error detection, split screen comparison with 'Billed' on left showing 25 lbs and 'Actual' on right showing 18 lbs, red highlight showing $47.50 overcharge, package dimensions displayed as 18x14x12 inches, UPS label visible, clean professional UI with white background, alert notification badge saying 'DIM Error Detected', include small 3D box icon, photorealistic software screenshot
+
+=== PRIORITY 5: 3-STEP PROCESS ===
+Horizontal process flow showing three numbered circles connected by arrows: 1) Connect icon showing plug symbol labeled 'Connect Carriers', 2) Magnifying glass icon labeled 'Audit Automatically', 3) Dollar sign with up arrow labeled 'Recover Savings', modern flat design, green and blue color scheme, white background, clean minimalist style
+
+=== PRIORITY 6: SECURITY BADGES ===
+Collection of three security badges arranged horizontally: SOC 2 Type II certified badge in blue, GDPR Compliant badge with EU stars, Read-Only Access badge with lock icon, all badges in shield shapes with metallic silver effect, professional certification style, white background, subtle drop shadows
+
+=== PRIORITY 7: CARRIER LOGOS ===
+Central SpotCircuit logo with connection lines extending to four carrier logos arranged in a circle: UPS (brown), FedEx (purple), DHL (yellow), USPS (blue), showing data flow with dotted animated lines, modern integration diagram style, white background, clean technical illustration, flat design with subtle shadows
+
+=== PRIORITY 8: SUCCESS ILLUSTRATION ===
+Cheerful illustration of a package with wings flying upward surrounded by dollar signs and sparkles, green and gold colors, flat design style, white background, representing successful cost recovery, friendly and professional
+
+=== ICON 1: AUTOMATION ===
+Flat design icon of automated gear wheels in motion, green and gray colors, 128x128px, white background, representing automation
+
+=== ICON 2: ALERTS ===
+Flat design icon of bell with notification dot, blue color, 128x128px, white background, representing real-time alerts
+
+=== ICON 3: EXPORT ===
+Flat design icon of download arrow pointing to spreadsheet, green color, 128x128px, white background, representing CSV export
+
+=== ICON 4: SAVINGS ===
+Flat design icon of clock with dollar sign, blue and green, 128x128px, white background, representing time and cost savings
+
+=== ICON 5: AUDIT ===
+Flat design icon of magnifying glass over invoice document, blue color, 128x128px, white background, representing audit scanning
+
+=== ICON 6: SECURE ===
+Flat design icon of shield with checkmark, green color, 128x128px, white background, representing secure access

@@ -1,0 +1,16 @@
+Tracking Number,Carrier,Error Type,Error Details,Original Charge,Corrected Charge,Recovery Amount,Confidence Score,Status,Detection Date,Invoice Number,File Name
+883657701525,FedEx,Late Delivery Refund,"FedEx Priority Overnight delivered 1 day(s) late - FULL REFUND",434.01,0.00,434.01,100,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+391579561727,FedEx,Invalid Address Correction,"Address correction fee charged - address was pre-validated at checkout",24.00,0.00,24.00,95,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+391977910313,FedEx,Invalid Address Correction,"Address correction fee charged - address was pre-validated at checkout",24.00,0.00,24.00,95,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+391735665765,FedEx,Residential on Commercial,"Business address charged residential fee ($2.98)",2.98,0.00,2.98,85,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+391977913253,FedEx,Residential on Commercial,"Business address charged residential fee ($2.98)",2.98,0.00,2.98,85,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+391979063407,FedEx,Residential on Commercial,"Business address charged residential fee ($2.98)",2.98,0.00,2.98,85,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+392085617890,FedEx,Residential on Commercial,"Business address charged residential fee ($2.98)",2.98,0.00,2.98,85,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+391494547319,FedEx,Residential on Commercial,"Business address charged residential fee ($2.98)",2.98,0.00,2.98,90,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+391495660808,FedEx,Residential on Commercial,"Business address charged residential fee ($2.98)",2.98,0.00,2.98,85,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+391578821346,FedEx,Residential on Commercial,"Business address charged residential fee ($2.98)",2.98,0.00,2.98,85,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+392231743705,FedEx,Residential on Commercial,"Business address charged residential fee ($2.98)",2.98,0.00,2.98,85,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+392239902171,FedEx,Residential on Commercial,"Business address charged residential fee ($2.98)",2.98,0.00,2.98,85,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+391578352650,FedEx,Dimensional Weight Error,"Billed 38lbs but should be 37.3lbs",18.51,18.17,0.34,90,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+392283341606,FedEx,Dimensional Weight Error,"Billed 45lbs but should be 44.6lbs",23.16,22.95,0.21,90,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
+392085617802,FedEx,Dimensional Weight Error,"Billed 16lbs but should be 15.8lbs",14.93,14.74,0.19,90,ready,9/1/2025,496609257,Fedex Invoice - FedEx_invoice_2025-08-31_16_59 (1).csv
