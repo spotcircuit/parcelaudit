@@ -68,7 +68,7 @@ function Calculator() {
           {/* ROI Calculator visual on mobile, hidden on desktop */}
           <div className="block sm:hidden mb-4">
             <OptimizedImage
-              src={assets.screenshots.roiCalculator.png}
+              src="/images/screenshots/roi-calculator.png"
               alt="ROI Calculator showing potential savings"
               className="rounded-2xl shadow-lg w-full"
               sizes="(max-width: 640px) 100vw"
@@ -91,17 +91,17 @@ function HowItWorks() {
     {
       title: "Connect carriers",
       desc: "Securely connect UPS / FedEx (and DHL/USPS if needed). Read-only access to invoices.",
-      icon: assets.logos.carrierIntegration.png,
+      icon: "/images/logos/carrier-integration.png",
     },
     {
       title: "Audit automatically",
       desc: "We flag DIM mis-calc, duplicate charges, residential/area surcharges, and late-delivery refunds.",
-      icon: assets.icons.automation.png,
+      icon: "/images/icons/automation.png",
     },
     {
       title: "Recover and prevent",
       desc: "Export dispute packets or auto-dispute with your carrier rep. Use rules to prevent repeat charges.",
-      icon: assets.screenshots.savingsChart.png,
+      icon: "/images/screenshots/savings-chart.png",
     },
   ];
   return (
@@ -110,7 +110,7 @@ function HowItWorks() {
       {/* Process flow image for mobile */}
       <div className="mt-8 block sm:hidden">
         <OptimizedImage
-          src={assets.screenshots.processFlow.png}
+          src="/images/screenshots/process-flow.png"
           alt="3-step process: Connect, Audit, Recover"
           className="rounded-2xl shadow-lg mx-auto"
           sizes="(max-width: 640px) 100vw"
@@ -143,12 +143,12 @@ function Features() {
     { 
       title: "DIM & weight checks", 
       desc: "Spot dimensional weight miscalculations across zones and services.",
-      image: assets.screenshots.dimDetection.png
+      image: "/images/screenshots/dim-detection.png"
     },
     { 
       title: "Surcharge intelligence", 
       desc: "Residential, delivery area, fuel—know what drove the cost.",
-      image: assets.screenshots.invoiceComparison.png
+      image: "/images/screenshots/invoice-comparison.png"
     },
     { title: "Duplicate & mismatch", desc: "Detect duplicate labels, wrong rate cards, and weekend fees." },
     { title: "Refund opportunities", desc: "Surface late-delivery and guarantee credits (where applicable)." },
@@ -156,7 +156,7 @@ function Features() {
     { 
       title: "Export & API", 
       desc: "Dispute packets, CSV/Sheets, and API access for automation.",
-      image: assets.icons.export.png
+      image: "/images/icons/export.png"
     },
   ];
   return (
@@ -167,7 +167,7 @@ function Features() {
       <div className="grid gap-4 mb-8 sm:grid-cols-2">
         <div className="relative">
           <OptimizedImage
-            src={assets.screenshots.dimDetection.png}
+            src="/images/screenshots/dim-detection.png"
             alt="DIM Error Detection showing weight discrepancies"
             className="rounded-2xl shadow-xl w-full"
             sizes="(max-width: 640px) 100vw, 50vw"
@@ -178,7 +178,7 @@ function Features() {
         </div>
         <div className="relative">
           <OptimizedImage
-            src={assets.screenshots.invoiceComparison.png}
+            src="/images/screenshots/invoice-comparison.png"
             alt="Before and after invoice comparison showing savings"
             className="rounded-2xl shadow-xl w-full"
             sizes="(max-width: 640px) 100vw, 50vw"
@@ -302,7 +302,7 @@ export default function LandingPage() {
             {/* Dashboard preview image - visible on larger screens, stacked on mobile */}
             <div className="mb-6 lg:mb-0">
               <OptimizedImage
-                src={assets.screenshots.dashboard.png}
+                src="/images/screenshots/dashboard-overview.png"
                 alt="SpotCircuit Dashboard showing invoice audit results"
                 className="rounded-2xl shadow-2xl border border-slate-200"
                 priority={true}
@@ -319,7 +319,7 @@ export default function LandingPage() {
             <div className="text-sm text-slate-600">Built for e‑commerce ops teams</div>
             <div className="flex items-center gap-4">
               <OptimizedImage
-                src={assets.trust.securityBadges.png}
+                src="/images/trust/security-badges.png"
                 alt="SOC 2, GDPR, and Read-Only Access badges"
                 className="w-full max-w-md h-auto object-contain"
                 sizes="400px"

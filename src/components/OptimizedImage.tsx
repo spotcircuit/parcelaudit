@@ -25,6 +25,17 @@ export default function OptimizedImage({
   sizes,
   objectFit = 'cover',
 }: OptimizedImageProps) {
+  // Handle missing or undefined src
+  if (!src) {
+    return (
+      <div className={`bg-gray-200 ${className}`} style={{ width, height }}>
+        <div className="flex items-center justify-center h-full text-gray-400">
+          Image
+        </div>
+      </div>
+    );
+  }
+  
   // Generate WebP path from PNG path
   const webpSrc = src.replace(/\.(png|jpg|jpeg)$/i, '.webp');
   
